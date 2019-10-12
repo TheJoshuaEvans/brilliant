@@ -8,6 +8,9 @@
   C is Odd
   A is Odd (inference)
 
+  All values are integers
+  All values are unique
+
   -----------------------
   What is B's parity?
   -----------------------
