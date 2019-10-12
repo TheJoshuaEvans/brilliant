@@ -49,7 +49,7 @@ const threeArrayCombinations = (arr1, arr2, arr3) => {
  * 
  * @return {boolean} true if all digits are unique, false otherwise
  */
-const areSDigitsUnique = (num) => {
+const areDigitsUnique = (num) => {
   // Convert to string
   str = num.toString()
   for (let i=0; i<str.length; i++) {
@@ -81,9 +81,9 @@ const areSDigitsUnique = (num) => {
   possible.CDE = threeArrayCombinations(possible.C, possible.D, possible.E);
 
   // Filter out all possibilities where different digits have the same value
-  possible.ABC = possible.ABC.filter((val) => areSDigitsUnique(val));
-  possible.BCA = possible.BCA.filter((val) => areSDigitsUnique(val));
-  possible.CDE = possible.CDE.filter((val) => areSDigitsUnique(val));
+  possible.ABC = possible.ABC.filter((val) => areDigitsUnique(val));
+  possible.BCA = possible.BCA.filter((val) => areDigitsUnique(val));
+  possible.CDE = possible.CDE.filter((val) => areDigitsUnique(val));
   
   // Add ABC and BCA together, and see if it's included in the list of CDE - save the values
   const confirmed = [];
@@ -110,7 +110,7 @@ const areSDigitsUnique = (num) => {
       if (sumString[0] !== C) return;
 
       // If all values aren't unique, it's out
-      if (!areSDigitsUnique(A + B + C + D + E)) return;
+      if (!areDigitsUnique(A + B + C + D + E)) return;
 
       // Save all values that are included in possible CDE solutions
       if (!possible.CDE.includes(sum)) return;
