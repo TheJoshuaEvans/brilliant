@@ -39,6 +39,26 @@ const threeArrayCombinations = (arr1, arr2, arr3) => {
   return ret;
 }
 
+/**
+ * Takes a number and determines if all the digits are unique (also works with strings/characters)
+ * 
+ * @param {number} num Number to determine digit uniqueness
+ * 
+ * @return {boolean} true if all digits are unique, false otherwise
+ */
+const areSDigitsUnique = (num) => {
+  // Convert to string
+  str = num.toString()
+  for (let i=0; i<str.length; i++) {
+    const char = str[i];
+
+    // If splitting on any character gives more than 2 elements, that character appears more than once
+    if (str.split(char).length !== 2) return false;
+  }
+
+  return true;
+}
+
 (async () => {
   // Define all possible digits for all variables
   const possible = {
@@ -56,6 +76,11 @@ const threeArrayCombinations = (arr1, arr2, arr3) => {
   possible.ABC = threeArrayCombinations(possible.A, possible.B, possible.C);
   possible.BCA = threeArrayCombinations(possible.B, possible.C, possible.A);
   possible.CDE = threeArrayCombinations(possible.C, possible.D, possible.E);
+
+  // Filter out all possibilities where different digits have the same value
+  possible.ABC = possible.ABC.filter((val) => areSDigitsUnique(val));
+  possible.BCA = possible.BCA.filter((val) => areSDigitsUnique(val));
+  possible.CDE = possible.CDE.filter((val) => areSDigitsUnique(val));
   
   // Add ABC and BCA together, and see if it's included in the list of CDE - save the values
   const confirmed = [];
@@ -70,10 +95,19 @@ const threeArrayCombinations = (arr1, arr2, arr3) => {
       const sumString = sum.toString();
 
       // If the sum doesn't have 3 digits it's out
-      if (sumString.length < 3 || sumString.length > 3) return;
+      if (sumString.length !== 3) return;
+
+      const A = abcValue.toString()[0];
+      const B = abcValue.toString()[1];
+      const C = abcValue.toString()[2];
+      const D = sumString[1];
+      const E = sumString[2];
 
       // If the first digit of the new sum doesn't equal C, it's out
-      if (sumString[0] !== abcValue.toString()[2]) return;
+      if (sumString[0] !== C) return;
+
+      // If all values aren't unique, it's out
+      if (!areSDigitsUnique(A + B + C + D + E)) return;
 
       // Save all values that are included in possible CDE solutions
       if (!possible.CDE.includes(sum)) return;
@@ -87,12 +121,7 @@ const threeArrayCombinations = (arr1, arr2, arr3) => {
     123 + 231 = 354
     145 + 451 = 596
     157 + 571 = 728
-    179 + 791 = 970
     325 + 253 = 578
-    337 + 373 = 710
-    359 + 593 = 952
-    539 + 395 = 934
-    719 + 197 = 916
 
     ---------------------
     Answer:
