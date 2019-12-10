@@ -85,4 +85,3 @@ function renderPerms(perms) {
   renderPerms(validPermutations);
   console.log(`\nProcess took ${(Date.now() - startTime) / 1000} seconds`);
 })()
-

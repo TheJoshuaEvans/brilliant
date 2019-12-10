@@ -93,6 +93,9 @@ Found 8 valid permutations:
 |--------------------|
 | 243  | 729  | 3    |
 |--------------------|
+
+
+Process took 1.983 seconds
 ```
 # Answer
 All permutations have 81 at the center - so 81 is the answer
